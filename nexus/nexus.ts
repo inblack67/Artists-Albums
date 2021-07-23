@@ -28,6 +28,17 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Album: { // root type
+    Artist?: NexusGenRootTypes['Artist'] | null; // Artist
+    ArtistId?: string | null; // String
+    Title?: string | null; // String
+  }
+  Artist: { // root type
+    Albums?: Array<NexusGenRootTypes['Album'] | null> | null; // [Album]
+    ArtistId?: string | null; // String
+    Name?: string | null; // String
+  }
+  Mutation: {};
   Query: {};
 }
 
@@ -42,18 +53,52 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Album: { // field return type
+    Artist: NexusGenRootTypes['Artist'] | null; // Artist
+    ArtistId: string | null; // String
+    Title: string | null; // String
+  }
+  Artist: { // field return type
+    Albums: Array<NexusGenRootTypes['Album'] | null> | null; // [Album]
+    ArtistId: string | null; // String
+    Name: string | null; // String
+  }
+  Mutation: { // field return type
+    updateArtist: boolean | null; // Boolean
+  }
   Query: { // field return type
+    artists: Array<NexusGenRootTypes['Artist'] | null> | null; // [Artist]
     hello: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Album: { // field return type name
+    Artist: 'Artist'
+    ArtistId: 'String'
+    Title: 'String'
+  }
+  Artist: { // field return type name
+    Albums: 'Album'
+    ArtistId: 'String'
+    Name: 'String'
+  }
+  Mutation: { // field return type name
+    updateArtist: 'Boolean'
+  }
   Query: { // field return type name
+    artists: 'Artist'
     hello: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    updateArtist: { // args
+      ArtistId?: number | null; // Int
+      Name?: string | null; // String
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

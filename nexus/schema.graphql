@@ -2,6 +2,23 @@
 ### Do not make changes to this file directly
 
 
+type Album {
+  Artist: Artist
+  ArtistId: String
+  Title: String
+}
+
+type Artist {
+  Albums: [Album]
+  ArtistId: String
+  Name: String
+}
+
+type Mutation {
+  updateArtist(ArtistId: Int, Name: String): Boolean
+}
+
 type Query {
+  artists: [Artist]
   hello: String
 }
