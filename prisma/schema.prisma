@@ -1,0 +1,21 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Artist {
+  ArtistId Int     @id @default(autoincrement())
+  Name     String
+  Album    Album[]
+}
+
+model Album {
+  AlbumId  Int    @id @default(autoincrement())
+  Title    String
+  Artist   Artist @relation(fields: [ArtistId], references: [ArtistId])
+  ArtistId Int
+}
