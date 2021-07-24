@@ -10,7 +10,7 @@ generator client {
 model Artist {
   ArtistId Int     @id @default(autoincrement())
   Name     String
-  Album    Album[]
+  Albums    Album[]
 }
 
 model Album {

@@ -17,12 +17,11 @@ export const Mutation = mutationType({
           const updatedArtist = await ctx.prisma.artist.update({
             data: { Name },
             where: { ArtistId },
-            select: {
-              Album: true,
-              ArtistId: true,
-              Name: true,
+            include: {
+              Albums: true,
             },
           });
+          console.log('updatedArtist = ', updatedArtist);
           pubsub.publish(ARTIST_UPDATE, updatedArtist);
           return true;
         } catch (err) {

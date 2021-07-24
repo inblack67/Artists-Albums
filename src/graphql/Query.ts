@@ -13,10 +13,8 @@ export const Query = queryType({
       resolve: async (_, __, ctx: IContext) => {
         try {
           const artists = await ctx.prisma.artist.findMany({
-            select: {
-              Album: true,
-              ArtistId: true,
-              Name: true,
+            include: {
+              Albums: true,
             },
           });
           return artists;
