@@ -21,7 +21,6 @@ export const Mutation = mutationType({
               Albums: true,
             },
           });
-          console.log('updatedArtist = ', updatedArtist);
           pubsub.publish(ARTIST_UPDATE, updatedArtist);
           return true;
         } catch (err) {
