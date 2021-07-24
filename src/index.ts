@@ -27,14 +27,13 @@ const main = async () => {
       prisma,
       pubsub,
     }),
-    
   });
 
   await apolloServer.start();
 
   apolloServer.applyMiddleware({ app, cors: false });
 
-  const PORT = process.env.PORT || 5000;
+  const PORT = process.env.PORT || 4000;
 
   const httpServer = http.createServer(app);
 
@@ -43,11 +42,10 @@ const main = async () => {
       execute,
       subscribe,
       schema,
-      
     },
     {
       server: httpServer,
-      path: apolloServer.graphqlPath,
+      // path: `/graphql`,
     },
   );
 

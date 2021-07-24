@@ -22,3 +22,7 @@ type Query {
   artists: [Artist]
   hello: String
 }
+
+type Subscription {
+  artistChanges(ArtistId: String): Artist
+}

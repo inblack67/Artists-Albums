@@ -40,6 +40,7 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  Subscription: {};
 }
 
 export interface NexusGenInterfaces {
@@ -70,6 +71,9 @@ export interface NexusGenFieldTypes {
     artists: Array<NexusGenRootTypes['Artist'] | null> | null; // [Artist]
     hello: string | null; // String
   }
+  Subscription: { // field return type
+    artistChanges: NexusGenRootTypes['Artist'] | null; // Artist
+  }
 }
 
 export interface NexusGenFieldTypeNames {
@@ -90,6 +94,9 @@ export interface NexusGenFieldTypeNames {
     artists: 'Artist'
     hello: 'String'
   }
+  Subscription: { // field return type name
+    artistChanges: 'Artist'
+  }
 }
 
 export interface NexusGenArgTypes {
@@ -97,6 +104,11 @@ export interface NexusGenArgTypes {
     updateArtist: { // args
       ArtistId?: number | null; // Int
       Name?: string | null; // String
+    }
+  }
+  Subscription: {
+    artistChanges: { // args
+      ArtistId?: string | null; // String
     }
   }
 }
