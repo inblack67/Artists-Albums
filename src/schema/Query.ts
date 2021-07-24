@@ -1,4 +1,5 @@
 import { queryType } from 'nexus';
+import { INTERNAL_SERVER_ERROR } from '../constants';
 import { IContext } from '../interfaces';
 import { ArtistType } from './types';
 
@@ -20,7 +21,7 @@ export const Query = queryType({
           return artists;
         } catch (err) {
           console.error(err);
-          return err;
+          return new Error(INTERNAL_SERVER_ERROR);
         }
       },
     });

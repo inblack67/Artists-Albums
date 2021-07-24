@@ -4,7 +4,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import cors from 'cors';
-import { getSchema } from './graphql';
+import { getSchema } from './schema';
 import { getMyPrismaClient } from './prisma';
 import { IContext } from './interfaces';
 

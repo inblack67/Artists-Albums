@@ -1,6 +1,6 @@
 import { Artist } from '@prisma/client';
 import { intArg, mutationType, stringArg } from 'nexus';
-import { ARTIST_UPDATE } from '../constants';
+import { ARTIST_UPDATE, INTERNAL_SERVER_ERROR, NOT_FOUND } from '../constants';
 import { IContext } from '../interfaces';
 import { pubsub } from './pubsub';
 
@@ -23,9 +23,12 @@ export const Mutation = mutationType({
           });
           pubsub.publish(ARTIST_UPDATE, updatedArtist);
           return true;
-        } catch (err) {
+        } catch (err: any) {
           console.error(err);
-          return err;
+          if (err.code === 'P2025') {
+            return new Error(NOT_FOUND);
+          }
+          return new Error(INTERNAL_SERVER_ERROR);
         }
       },
     });

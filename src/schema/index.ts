@@ -1,4 +1,4 @@
-import { makeSchema } from 'nexus';
+import { makeSchema, queryComplexityPlugin } from 'nexus';
 import { ArtistType, AlbumType } from './types';
 import { Query } from './Query';
 import { Mutation } from './Mutation';
@@ -12,6 +12,7 @@ export const getSchema = () => {
       schema: path.join(process.cwd(), 'nexus/schema.graphql'),
       typegen: path.join(process.cwd(), 'nexus/nexus.ts'),
     },
+    plugins: [queryComplexityPlugin()],
   });
   return schema;
 };
