@@ -24,5 +24,6 @@ type Query {
 }
 
 type Subscription {
-  artistChanges(ArtistId: String): Artist
+  artistChanges: Artist
+  truths: Boolean
 }

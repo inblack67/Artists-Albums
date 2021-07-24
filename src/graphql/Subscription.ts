@@ -1,20 +1,32 @@
 import { Artist } from '@prisma/client';
-import { stringArg, subscriptionType } from 'nexus';
+import { subscriptionType } from 'nexus';
 import { ARTIST_UPDATE } from '../constants';
-import { IContext } from '../interfaces';
+import { pubsub } from './pubsub';
 import { ArtistType } from './types';
 
 export const Subscription = subscriptionType({
   definition(t) {
-    t.field('artistChanges', {
-      type: ArtistType,
-      args: {
-        ArtistId: stringArg(),
+    t.boolean('truths', {
+      subscribe() {
+        return (async function* () {
+          while (true) {
+            await new Promise((res) => setTimeout(res, 1000));
+            yield Math.random() > 0.5;
+          }
+        })();
       },
-      subscribe: (_, __, ctx: IContext) => {
-        return ctx.pubsub.asyncIterator(ARTIST_UPDATE);
+      resolve(eventData) {
+        return eventData;
       },
-      resolve: (pubsubPayload: Artist) => pubsubPayload,
-    });
+    }),
+      t.field('artistChanges', {
+        type: ArtistType,
+        subscribe: () => {
+          return pubsub.asyncIterator(ARTIST_UPDATE);
+        },
+        resolve: (pubsubPayload: Artist) => {
+          return pubsubPayload;
+        },
+      });
   },
 });

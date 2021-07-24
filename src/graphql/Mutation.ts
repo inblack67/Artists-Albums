@@ -2,6 +2,7 @@ import { Artist } from '@prisma/client';
 import { intArg, mutationType, stringArg } from 'nexus';
 import { ARTIST_UPDATE } from '../constants';
 import { IContext } from '../interfaces';
+import { pubsub } from './pubsub';
 
 export const Mutation = mutationType({
   definition(t) {
@@ -22,7 +23,7 @@ export const Mutation = mutationType({
               Name: true,
             },
           });
-          ctx.pubsub.publish(ARTIST_UPDATE, updatedArtist);
+          pubsub.publish(ARTIST_UPDATE, updatedArtist);
           return true;
         } catch (err) {
           console.error(err);

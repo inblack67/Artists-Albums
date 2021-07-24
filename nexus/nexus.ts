@@ -73,6 +73,7 @@ export interface NexusGenFieldTypes {
   }
   Subscription: { // field return type
     artistChanges: NexusGenRootTypes['Artist'] | null; // Artist
+    truths: boolean | null; // Boolean
   }
 }
 
@@ -96,6 +97,7 @@ export interface NexusGenFieldTypeNames {
   }
   Subscription: { // field return type name
     artistChanges: 'Artist'
+    truths: 'Boolean'
   }
 }
 
@@ -104,11 +106,6 @@ export interface NexusGenArgTypes {
     updateArtist: { // args
       ArtistId?: number | null; // Int
       Name?: string | null; // String
-    }
-  }
-  Subscription: {
-    artistChanges: { // args
-      ArtistId?: string | null; // String
     }
   }
 }

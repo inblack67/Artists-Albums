@@ -3,7 +3,6 @@ import http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { execute, subscribe } from 'graphql';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
-import { PubSub } from 'graphql-subscriptions';
 import cors from 'cors';
 import { getSchema } from './graphql';
 import { getMyPrismaClient } from './prisma';
@@ -11,7 +10,6 @@ import { IContext } from './interfaces';
 
 const main = async () => {
   const prisma = getMyPrismaClient();
-  const pubsub = new PubSub();
 
   const app = express();
 
@@ -25,7 +23,6 @@ const main = async () => {
       req,
       res,
       prisma,
-      pubsub,
     }),
   });
 
@@ -45,7 +42,6 @@ const main = async () => {
     },
     {
       server: httpServer,
-      // path: `/graphql`,
     },
   );
 
